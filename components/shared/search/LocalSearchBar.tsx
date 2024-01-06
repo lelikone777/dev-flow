@@ -6,13 +6,13 @@ import React from "react";
 
 interface CustomInputProps {
   route: string;
-  iconPosition: "left" | "center" | "right";
+  iconPosition: string;
   imgSrc: string;
   placeholder: string;
   otherClasses?: string;
 }
 
-const LocalSearchBar = ({
+const LocalSearchbar = ({
   route,
   iconPosition,
   imgSrc,
@@ -54,4 +54,4 @@ const LocalSearchBar = ({
   );
 };
 
-export default LocalSearchBar;
+export default LocalSearchbar;
