@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
+import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
-import { NextResponse } from "next/server";
+import { createUser, updateUser, deleteUser } from "@/lib/actions/user.action";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -15,7 +15,6 @@ export async function POST(req: Request) {
     );
   }
 
-  // Get the headers
   const headerPayload = headers();
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
@@ -28,16 +27,11 @@ export async function POST(req: Request) {
     });
   }
 
-  // Get the body
   const payload = await req.json();
   const body = JSON.stringify(payload);
-
-  // Create a new SVIX instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
-
   let evt: WebhookEvent;
 
-  // Verify the payload with the headers
   try {
     evt = wh.verify(body, {
       "svix-id": svix_id,
@@ -59,7 +53,6 @@ export async function POST(req: Request) {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
 
-    // Create a new user in your database
     const mongoUser = await createUser({
       clerkId: id,
       name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
@@ -68,14 +61,16 @@ export async function POST(req: Request) {
       picture: image_url,
     });
 
-    return NextResponse.json({ message: "OK", user: mongoUser });
+    return NextResponse.json({
+      message: "User created",
+      user: mongoUser,
+    });
   }
 
   if (eventType === "user.updated") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
 
-    // Create a new user in your database
     const mongoUser = await updateUser({
       clerkId: id,
       updateData: {
@@ -87,7 +82,10 @@ export async function POST(req: Request) {
       path: `/profile/${id}`,
     });
 
-    return NextResponse.json({ message: "OK", user: mongoUser });
+    return NextResponse.json({
+      message: "User created",
+      user: mongoUser,
+    });
   }
 
   if (eventType === "user.deleted") {
