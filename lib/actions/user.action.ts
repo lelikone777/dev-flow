@@ -1,7 +1,7 @@
 "use server";
 
-import { connectToDatabase } from "../mongoose";
 import User from "@/database/user.model";
+import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
@@ -13,7 +13,7 @@ import Question from "@/database/question.model";
 
 export async function getUserById(params: any) {
   try {
-    await connectToDatabase();
+    connectToDatabase();
 
     const { userId } = params;
 
@@ -28,7 +28,7 @@ export async function getUserById(params: any) {
 
 export async function createUser(userData: CreateUserParams) {
   try {
-    await connectToDatabase();
+    connectToDatabase();
 
     const newUser = await User.create(userData);
 
@@ -41,7 +41,7 @@ export async function createUser(userData: CreateUserParams) {
 
 export async function updateUser(params: UpdateUserParams) {
   try {
-    await connectToDatabase();
+    connectToDatabase();
 
     const { clerkId, updateData, path } = params;
 
@@ -58,7 +58,7 @@ export async function updateUser(params: UpdateUserParams) {
 
 export async function deleteUser(params: DeleteUserParams) {
   try {
-    await connectToDatabase();
+    connectToDatabase();
 
     const { clerkId } = params;
 
@@ -90,13 +90,24 @@ export async function deleteUser(params: DeleteUserParams) {
 
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
-    await connectToDatabase();
-    // const { page = 1, pageSize = 20, filter, searchQuery } = params
+    connectToDatabase();
+
+    // const { page = 1, pageSize = 20, filter, searchQuery } = params;
 
     const users = await User.find({}).sort({ createdAt: -1 });
+
     return { users };
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
+// export async function getAllUsers(params: GetAllUsersParams) {
+//   try {
+//     connectToDatabase();
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
