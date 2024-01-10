@@ -1,9 +1,11 @@
 "use client";
 
+import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import {
   downvoteQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
+import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -30,7 +32,13 @@ const Votes = ({
 }: Props) => {
   const pathname = usePathname();
   // const router = useRouter();
-  const handleSave = async () => {};
+  const handleSave = async () => {
+    await toggleSaveQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname,
+    });
+  };
   const handleVote = async (action: string) => {
     if (!userId) {
       return;
@@ -45,16 +53,15 @@ const Votes = ({
           hasdownVoted,
           path: pathname,
         });
+      } else if (type === "Answer") {
+        await upvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
       }
-      // else if(type === 'Answer') {
-      //   await upvoteAnswer({
-      //     answerId: JSON.parse(itemId),
-      //     userId: JSON.parse(userId),
-      //     hasupVoted,
-      //     hasdownVoted,
-      //     path: pathname,
-      //   })
-      // }
 
       // todo: show a toast
       return;
@@ -69,16 +76,15 @@ const Votes = ({
           hasdownVoted,
           path: pathname,
         });
+      } else if (type === "Answer") {
+        await downvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
       }
-      //   else if(type === 'Answer') {
-      //     await downvoteAnswer({
-      //       answerId: JSON.parse(itemId),
-      //       userId: JSON.parse(userId),
-      //       hasupVoted,
-      //       hasdownVoted,
-      //       path: pathname,
-      //     })
-      //   }
 
       // todo: show a toast
     }
