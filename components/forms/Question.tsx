@@ -151,6 +151,7 @@ const Question = ({ mongoUserId }: Props) => {
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
+                  onChange={() => {}}
                   init={{
                     height: 350,
                     menubar: false,
