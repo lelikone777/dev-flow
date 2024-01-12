@@ -16,7 +16,7 @@ interface QuestionProps {
     name: string;
     picture: string;
   };
-  upvotes: number;
+  upvotes: number[];
   views: number;
   answers: Array<object>;
   createdAt: Date;
