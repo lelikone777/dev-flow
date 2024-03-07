@@ -28,6 +28,7 @@ const Page = async ({
     mongoUser = await getUserById({ userId: clerkId });
   }
 
+  // @ts-ignore
   const result = await getQuestionById({ questionId: params.id });
 
   return (
