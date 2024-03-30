@@ -101,7 +101,6 @@ const Page = async ({ params, searchParams }: URLProps) => {
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
-            {/* QuestionTab */}
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
             <AnswersTab
@@ -109,7 +108,6 @@ const Page = async ({ params, searchParams }: URLProps) => {
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
-            {/* AnswersTab */}
           </TabsContent>
         </Tabs>
       </div>

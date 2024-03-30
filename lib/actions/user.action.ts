@@ -210,7 +210,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
 
 export async function getUserQuestions(params: GetUserStatsParams) {
   try {
-    await connectToDatabase();
+    connectToDatabase();
 
     const { userId, page = 1, pageSize = 10 } = params;
 
@@ -230,7 +230,7 @@ export async function getUserQuestions(params: GetUserStatsParams) {
 
 export async function getUserAnswers(params: GetUserStatsParams) {
   try {
-    await connectToDatabase();
+    connectToDatabase();
 
     const { userId, page = 1, pageSize = 10 } = params;
 
