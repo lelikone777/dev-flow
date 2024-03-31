@@ -2,17 +2,22 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
-import LocalSearchbar from "@/components/shared/search/LocalSearchBar";
+import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
+// import Pagination from "@/components/shared/Pagination";
+
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import { getQuestions } from "@/lib/actions/question.action";
-import Link from "next/link";
 import { SearchParamsProps } from "@/types";
+import Link from "next/link";
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
+
+  // Fetch Recommended Questions
 
   return (
     <>

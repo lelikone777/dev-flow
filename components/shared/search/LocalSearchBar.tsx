@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { formatUrl } from "next/dist/shared/lib/router/utils/format-url";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 interface CustomInputProps {
@@ -27,6 +26,7 @@ const LocalSearchbar = ({
   const searchParams = useSearchParams();
 
   const query = searchParams.get("q");
+
   const [search, setSearch] = useState(query || "");
 
   useEffect(() => {
