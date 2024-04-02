@@ -3,6 +3,7 @@ import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
+// @ts-ignore
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
@@ -16,8 +17,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-
-  // Fetch Recommended Questions
 
   return (
     <>

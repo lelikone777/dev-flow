@@ -14,6 +14,7 @@ interface QuestionProps {
     name: string;
   }[];
   author: {
+    clerkId: number | string;
     _id: string;
     name: string;
     picture: string;
